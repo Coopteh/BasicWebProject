@@ -1,0 +1,11 @@
+{
+    "name": "409-12/my-php",
+    "autoload": {
+        "psr-4": {
+            "40912\\MyPhp\\": "src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    }
+}

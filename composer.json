@@ -1,14 +1,5 @@
 {
-    "name": "coopteh/web",
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Coop Teh",
-            "email": "noname@coopteh.ru"
-        }
-    ]
+    "require-dev": {
+        "phpmetrics/phpmetrics": "^2.8"
+    }
 }

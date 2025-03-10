@@ -1,0 +1,195 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212; /* Темный фон */
+    color: white;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #2c1e56; /* Темно-фиолетовый фон для хедера */
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: #b39ddb; /* Фиолетовый цвет для ссылок */
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff79c6; /* Ярко-фиолетовый цвет при наведении */
+}
+
+/* Секции */
+.section {
+    padding: 40px;
+    text-align: center;
+    animation: slideIn 1s ease-in-out;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    animation: slideIn 1s ease-in-out;
+}
+
+.config-container, .map-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    animation: fadeInUp 2s ease-out;
+}
+
+.config-card, .map-card {
+    background-color: #2c1e56;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.config-card:hover, .map-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #ff79c6; /* Ярко-фиолетовый для заголовков */
+}
+
+/* Шипучая кнопка */
+button.download-btn {
+    position: relative;
+    background-color: #8e44ad; /* Темно-фиолетовый цвет кнопки */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden; /* Чтобы пузырьки не выходили за пределы кнопки */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Эффект шипучих пузырьков */
+button.download-btn:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    animation: bubbleEffect 1.5s infinite ease-in-out;
+    pointer-events: none;
+}
+
+/* Анимация пузырьков, они "всплывают" вверх и исчезают */
+@keyframes bubbleEffect {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -150%) scale(1.5);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -250%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* Пульсация кнопки */
+button.download-btn:hover {
+    background-color: #9b59b6; /* Светлый фиолетовый при наведении */
+    transform: scale(1.1); /* Легкое увеличение кнопки */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличенная тень */
+    animation: pulseEffect 0.5s ease-in-out infinite alternate; /* Пульсация */
+}
+
+/* Пульсация кнопки */
+@keyframes pulseEffect {
+    0% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1.15);
+    }
+}
+
+/* Анимация при нажатии */
+button.download-btn:active {
+    transform: scale(0.95); /* Уменьшение кнопки при нажатии */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Меньшая тень */
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+footer {
+    background-color: #2c1e56;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
