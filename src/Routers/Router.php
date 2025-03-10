@@ -2,7 +2,7 @@
 namespace Routers;
 
 use Controllers\Home;
-use Controllers\Users;
+use Controllers\Project;
 
 class Router {
     public function route(string $url):?string 
@@ -33,43 +33,31 @@ class Router {
                 else
                     $html_result = $product->getAll();
                 break;*/
-            case 'login':
-                $userController = new Users();
-                if (isset($_POST['login']) && isset($_POST['password'])) {
-                    //var_dump($_POST);
-                    if ($userController->auth($_POST['login'],$_POST['password'])) {
-                        self::addFlash("Успешно пройдена аутентификация пользователя");
-                        header('Location: /');
-                        return '';
-                    } else {
-                        self::addFlash("Такого пользователя нет в БД", "alert-danger");
-                    }
-                }
-                $html_result = $userController->get();
-                break;
-            case 'users':
-                $userController = new Users();
-                $html_result = $userController->getAll();
+            case 'list':
+                $projectController = new Project();
+                $html_result = $projectController->getAll();
                 break;                
-            case 'add_user':
-                $userController = new Users();
-                if (isset($_POST['login']) && isset($_POST['password'])) {
+            case 'add':
+                $projectController = new Project();
+                if (isset($_POST['name']) && isset($_POST['status'])) {
                     $row= array(
-                        'login' => $_POST['login'], 
-                        'password' => $_POST['password'], 
-                        'role' => $_POST['role']
+                        'name' => $_POST['name'], 
+                        'description' => $_POST['description'], 
+                        'start_date' => date("Y-m-d",strtotime($_POST['start_date'])),
+                        'end_date' => date("Y-m-d",strtotime($_POST['end_date'])),
+                        'status' => $_POST['status']
                     );
                     //var_dump($row);
                     //exit();
-                    if ($userController->addUser($row)) {
-                        self::addFlash("Пользователь успешно добавлен");
+                    if ($projectController->add($row)) {
+                        self::addFlash("Проект успешно добавлен");
                         header('Location: /');
                         return '';
                     } else {
-                        self::addFlash("Ошибка добавления пользователя", "alert-danger");
+                        self::addFlash("Ошибка добавления проекта", "alert-danger");
                     }
                 }                
-                $html_result = $userController->getForm();
+                $html_result = $projectController->getForm();
                 break;
             default:
                 $home = new Home();
