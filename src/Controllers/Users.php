@@ -16,6 +16,11 @@ class Users {
     {
         $storage = new UserDBStorage();
         $result = $storage->getUser($login,$password);
+        if ($result !== false) {
+            $_SESSION['user_id']= $result["iduser"];
+            $_SESSION['user_name']= $result["login"];
+            $_SESSION['user_role']= $result["role"];
+        }
         return $result;
     }
 

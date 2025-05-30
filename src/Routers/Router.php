@@ -23,7 +23,6 @@ class Router {
 
         $resource = $pieces[1];
         $html_result = "";
-        session_start();
 
         switch ($resource) {
             /*case "products":
@@ -47,6 +46,13 @@ class Router {
                 }
                 $html_result = $userController->get();
                 break;
+            case 'logout':
+                unset($_SESSION['user_id']);
+                unset($_SESSION['user_name']);
+                unset($_SESSION['user_role']);
+                self::addFlash("Вы вышли из аккаунта");
+                header('Location: /');
+                return '';                
             case 'users':
                 $userController = new Users();
                 $html_result = $userController->getAll();

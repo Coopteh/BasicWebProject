@@ -3,6 +3,7 @@ namespace Views;
 
 class BaseTemplate {  
     public function getBaseTemplate() {
+    global $user_id, $user_name, $user_role;
         $template = <<<END
         <!DOCTYPE html>
         <html lang="ru">
@@ -26,8 +27,31 @@ class BaseTemplate {
                     </div>               
                 </div>
                 </div>
-            </nav>
         END;
+
+        if ($user_id > 0) {
+                $template .= <<<LINE
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                ({$user_name})
+                            </li>
+                            <li class="nav-item">
+                                &nbsp;
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/logout">Выход</a>
+                            </li>
+                        </ul>
+                LINE;
+        } else {
+            $template .= <<<LINE
+                <a class="nav-link p-3" href="/login">
+                Вход
+                </a>
+            LINE;    
+        }
+        $template .= "</nav>";
+
         $template = self::getSimpleFlash($template);
         $template .= <<<END
             %s
