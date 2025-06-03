@@ -3,6 +3,7 @@ namespace Routers;
 
 use Controllers\Home;
 use Controllers\Users;
+use Controllers\Scores;
 
 class Router {
     public function route(string $url):?string 
@@ -52,7 +53,11 @@ class Router {
                 unset($_SESSION['user_role']);
                 self::addFlash("Вы вышли из аккаунта");
                 header('Location: /');
-                return '';                
+                return ''; 
+            case 'scores':
+                $scoreController = new Scores();
+                $html_result = $scoreController->getAll();
+                break; 
             case 'users':
                 $userController = new Users();
                 $html_result = $userController->getAll();

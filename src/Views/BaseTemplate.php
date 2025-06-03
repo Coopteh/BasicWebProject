@@ -24,10 +24,16 @@ class BaseTemplate {
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
-                    </div>               
-                </div>
-                </div>
-        END;
+                    </div>     
+        END;                   
+    if (($user_role == 'student') or ($user_role == 'teacher')) {
+            $template .= <<<SCORE
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="/scores">Оценки</a>
+                    </div>
+            SCORE;         
+    }
+        $template .= "</div></div>";
 
         if ($user_id > 0) {
                 $template .= <<<LINE
