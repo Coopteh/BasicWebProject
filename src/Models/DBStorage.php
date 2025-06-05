@@ -14,5 +14,6 @@ class DBStorage
     public function __construct(){
         // устанавливаем соединение
         $this->connection = new PDO(self::DNS, self::USER, self::PASSWORD);
+        $this->connection->exec("set names utf8mb4");
     }
 }
