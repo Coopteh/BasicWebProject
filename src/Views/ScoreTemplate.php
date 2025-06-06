@@ -105,6 +105,12 @@ class ScoreTemplate extends BaseTemplate {
         $str .= <<<END
                 </tbody>
             </table>        
+
+            <form action="/add_score" method="POST">
+                <button type="submit" class="btn btn-primary">Добавить запись</button>
+            </form>
+
+
             </div>
         </div>
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
@@ -113,4 +119,83 @@ class ScoreTemplate extends BaseTemplate {
         return $resultTemplate;
     }
 
+    public function getFormTemplate($groups, $students, $subjects) 
+    {
+        $template = parent::getBaseTemplate();
+        $str = '';
+        $str .= <<<END
+        <h1>Добавление оценки</h1>
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+            <form method="post" action="/add_score">
+        END;
+
+        // Выбор студента
+        $str .= <<<SELECT1
+        <div data-mdb-input-init class="form-outline mb-4">
+        <select class="form-select" aria-label="Default select example" name="idstudent">
+            <option selected>Выберите студента</option>
+        SELECT1;
+        foreach($students as $student) {
+            if (isset($_POST["idstudent"]) and ($student['iduser']==$_POST["idstudent"]))
+                $selected= "selected";
+            else
+                $selected= "";
+            $str .= '<option value="'.$student['iduser'].'" '.$selected.'>'.$student['login'].'</option>';
+        }
+        $str.='</select></div>';
+
+        // Выбор группы
+        $str .= <<<SELECT
+        <div data-mdb-input-init class="form-outline mb-4">
+        <select class="form-select" aria-label="Default select example" name="idgroup">
+            <option selected>Выберите группу</option>
+        SELECT;
+        foreach($groups as $group) {
+            if (isset($_POST["idgroup"]) and ($group['idgroup']==$_POST["idgroup"]))
+                $selected= "selected";
+            else
+                $selected= "";
+            $str .= '<option value="'.$group['idgroup'].'" '.$selected.'>'.$group['name'].'</option>';
+        }
+        $str.='</select></div>';
+
+        // Выбор дисциплины
+        $str .= <<<SELECT
+        <div data-mdb-input-init class="form-outline mb-4">
+        <select class="form-select" aria-label="Default select example" name="idsubject">
+            <option selected>Выберите дисциплину</option>
+        SELECT;
+        foreach($subjects as $subject) {
+            if (isset($_POST["idsubject"]) and ($subject['idsubject']==$_POST["idsubject"]))
+                $selected= "selected";
+            else
+                $selected= "";
+            $str .= '<option value="'.$subject['idsubject'].'" '.$selected.'>'.$subject['name'].'</option>';
+        }
+        $str.='</select></div>';
+
+        $str .= <<<FIELDS
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="form2Example1">Дата:</label>
+                <input type="text" name="date_score" id="form2Example1" class="form-control" required/>
+                <div class="invalid-feedback">Поле обязательно к заполнению</div>
+            </div>
+
+            <div data-mdb-input-init class="form-outline mb-4">
+                <label class="form-label" for="form3Example1">Оценка:</label>
+                <input type="text" name="score" id="form3Example1" class="form-control" required/>
+                <div class="invalid-feedback">Поле обязательно к заполнению</div>
+            </div>
+
+                <!-- Submit button -->
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Добавить</button>
+            </form>
+            </div>
+        </div>
+        <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+        FIELDS;
+        $resultTemplate =  sprintf($template, 'Добавление оценки', $str);
+        return $resultTemplate;   
+    }
 }

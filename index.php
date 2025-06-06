@@ -1,4 +1,6 @@
 <?php
+ini_set('default_charset', 'UTF-8');  
+
 use Routers\Router;
 
 require_once("./vendor/autoload.php");

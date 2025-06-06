@@ -42,4 +42,22 @@ class ScoreDBStorage extends DBStorage
         $rows = $result->fetchAll();
         return $rows;
     }
+
+    public function getSubjects() {
+        global $user_id, $user_role;
+        $sql= "SELECT idsubject, name  FROM subjects WHERE idteacher=".$user_id;
+        $result = $this->connection->query($sql);
+        $rows = $result->fetchAll();
+        return $rows;
+    }
+
+    public function addScore($row) {      
+        $sql = "INSERT INTO `scores` (`iduser`, `idgroup`, `idsubject`, `date_score`, `score`) 
+        VALUES ('".$row['idstudent']."','".$row['idgroup']."','".$row['idsubject']."',
+        '".$row['date_score']."', '".$row['score']."' )";
+// var_dump($sql);
+// exit();        
+        $result = $this->connection->query($sql);
+        return $result;
+    }
 }

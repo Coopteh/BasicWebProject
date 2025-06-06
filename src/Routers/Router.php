@@ -4,6 +4,7 @@ namespace Routers;
 use Controllers\Home;
 use Controllers\Users;
 use Controllers\Scores;
+use Controllers\Subjects;
 
 class Router {
     public function route(string $url):?string 
@@ -58,9 +59,35 @@ class Router {
                 $scoreController = new Scores();
                 $html_result = $scoreController->getAll();
                 break; 
+            case 'subjects':
+                $subjectsController = new Subjects();
+                $html_result = $subjectsController->getAll();
+                break;                
             case 'users':
                 $userController = new Users();
                 $html_result = $userController->getAll();
+                break; 
+            case 'add_score':
+                $scoreController = new Scores();
+                if (isset($_POST['idstudent']) && isset($_POST['score'])) {
+                    $row= array(
+                        'idstudent' => $_POST['idstudent'], 
+                        'idgroup' => $_POST['idgroup'], 
+                        'idsubject' => $_POST['idsubject'], 
+                        'date_score' => $_POST['date_score'],
+                        'score' => $_POST['score']
+                    );
+                    //var_dump($row);
+                    //exit();
+                    if ($scoreController->addScore($row)) {
+                        self::addFlash("Оценка успешно добавлена");
+                        header('Location: /scores');
+                        return '';
+                    } else {
+                        self::addFlash("Ошибка добавления оценки", "alert-danger");
+                    }
+                }                   
+                $html_result = $scoreController->getForm();
                 break;                
             case 'add_user':
                 $userController = new Users();

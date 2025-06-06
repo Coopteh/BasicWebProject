@@ -8,7 +8,9 @@ class UserDBStorage extends DBStorage
     public function getUser($login, $password) {
         $sql = "SELECT * FROM users WHERE login='".$login."' and password='".$password."'";
         $result = $this->connection->query($sql);
-        $row = $result->fetch();
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+//var_dump($sql);
+//exit();
         return $row;
     }
 

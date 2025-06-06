@@ -17,7 +17,7 @@ class BaseTemplate {
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">BASIC WEB PROJECT</a>
+                    <a class="navbar-brand" href="#">НАЗВАНИЕ ПРОГРАММЫ</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
@@ -33,6 +33,13 @@ class BaseTemplate {
                     </div>
             SCORE;         
     }
+    if ($user_role == 'teacher') {
+            $template .= <<<SCORE
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="/subjects">Дисциплины</a>
+                    </div>
+            SCORE;         
+    }    
         $template .= "</div></div>";
 
         if ($user_id > 0) {

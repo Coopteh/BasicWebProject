@@ -18,4 +18,22 @@ class Scores {
 
         return $template;
     }    
+    
+    public function getForm() {
+        $storage = new ScoreDBStorage();
+        $groups = $storage->getGroups();
+        $students = $storage->getStudents();
+        $subjects = $storage->getSubjects();
+
+        $objTemplate = new ScoreTemplate();
+        $template = $objTemplate->getFormTemplate($groups, $students, $subjects);
+        return $template;
+    }
+
+    public function addScore($row)
+    {
+        $storage = new ScoreDBStorage();
+        $result = $storage->addScore($row);
+        return $result;
+    }
 }
