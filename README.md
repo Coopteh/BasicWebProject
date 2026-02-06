@@ -7,6 +7,7 @@
 в папке c:\xampp\htdocs выполните
 git clone https://github.com/Coopteh/BasicWebProject.git
 - перенесите все файлы из BasicWebProject в c:\xampp\htdocs, затем удалите пустую папку BasicWebProject
+- удалите также composer.lock и readme.md (этот файл с описанием, либо перенесите в другое место на диске)
 composer install
 ```
 ## Описание проекта
