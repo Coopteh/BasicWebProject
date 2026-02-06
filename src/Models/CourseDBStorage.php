@@ -1,9 +1,9 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 use PDO;
 
-class SubjectsDBStorage extends DBStorage
+class CourseDBStorage extends DBStorage
 {
 
     public function getAllSubjects():mixed {

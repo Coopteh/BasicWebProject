@@ -1,11 +1,11 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 use PDO;
 
 class DBStorage 
 {
-    const DNS = 'mysql:dbname=jornal;host=localhost';
+    const DNS = 'mysql:dbname=demo1;host=localhost';
     const USER = 'root';
     const PASSWORD = '';
 

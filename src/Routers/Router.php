@@ -1,10 +1,10 @@
 <?php
-namespace Routers;
+namespace App\Routers;
 
-use Controllers\Home;
-use Controllers\Users;
-use Controllers\Scores;
-use Controllers\Subjects;
+use App\Controllers\Home;
+use App\Controllers\Users;
+use App\Controllers\Marks;
+use App\Controllers\Courses;
 
 class Router {
     public function route(string $url):?string 
@@ -37,7 +37,6 @@ class Router {
             case 'login':
                 $userController = new Users();
                 if (isset($_POST['login']) && isset($_POST['password'])) {
-                    //var_dump($_POST);
                     if ($userController->auth($_POST['login'],$_POST['password'])) {
                         self::addFlash("Успешно пройдена аутентификация пользователя");
                         header('Location: /');

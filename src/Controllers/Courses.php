@@ -1,10 +1,10 @@
 <?php
-namespace Controllers;
+namespace App\Controllers;
 
-use Models\SubjectsDBStorage;
-use Views\SubjectsTemplate;
+use App\Models\CourseDBStorage;
+use App\Views\CourseTemplate;
 
-class Subjects {
+class Courses {
     public function getAll(): string 
     {
         $objTemplate = new SubjectsTemplate();

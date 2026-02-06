@@ -1,8 +1,8 @@
 <?php
-namespace Controllers;
+namespace App\Controllers;
 
-use Models\UserDBStorage;
-use Views\UserTemplate;
+use App\Models\UserDBStorage;
+use App\Views\UserTemplate;
 
 class Users {
     public function get(): string 
@@ -17,8 +17,8 @@ class Users {
         $storage = new UserDBStorage();
         $result = $storage->getUser($login,$password);
         if ($result !== false) {
-            $_SESSION['user_id']= $result["iduser"];
-            $_SESSION['user_name']= $result["login"];
+            $_SESSION['user_id']= $result["id_user"];
+            $_SESSION['user_name']= $result["fio"];
             $_SESSION['user_role']= $result["role"];
         }
         return $result;

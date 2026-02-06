@@ -1,9 +1,10 @@
 <?php
-namespace Views;
+namespace App\Views;
 
 class BaseTemplate {  
     public function getBaseTemplate() {
-    global $user_id, $user_name, $user_role;
+        global $user_id, $user_name, $user_role;
+
         $template = <<<END
         <!DOCTYPE html>
         <html lang="ru">
@@ -29,14 +30,14 @@ class BaseTemplate {
     if (($user_role == 'student') or ($user_role == 'teacher')) {
             $template .= <<<SCORE
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/scores">Оценки</a>
+                        <a class="nav-link active" aria-current="page" href="/marks">Оценки</a>
                     </div>
             SCORE;         
     }
     if ($user_role == 'teacher') {
             $template .= <<<SCORE
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/subjects">Дисциплины</a>
+                        <a class="nav-link active" aria-current="page" href="/courses">Дисциплины</a>
                     </div>
             SCORE;         
     }    
@@ -44,9 +45,9 @@ class BaseTemplate {
 
         if ($user_id > 0) {
                 $template .= <<<LINE
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav w-25">
                             <li class="nav-item">
-                                ({$user_name})
+                                {$user_name} |
                             </li>
                             <li class="nav-item">
                                 &nbsp;
@@ -74,17 +75,6 @@ class BaseTemplate {
         END;
         return $template;
     }
-/*
-                    <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/login">Вход</a>
-                    </div>
-                    <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/users">Список пользователей</a>
-                    </div>
-                    <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/add_user">Добавить пользователя</a>
-                    </div>
-*/
 
     // Добавим flash сообщение
     public static function getSimpleFlash(string $str): string 

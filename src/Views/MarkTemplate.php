@@ -1,7 +1,7 @@
 <?php
-namespace Views;
+namespace App\Views;
 
-use Views\BaseTemplate;
+use App\Views\BaseTemplate;
 
 class ScoreTemplate extends BaseTemplate {
 

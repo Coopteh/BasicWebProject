@@ -1,7 +1,7 @@
 <?php
-namespace Views;
+namespace App\Views;
 
-use Views\BaseTemplate;
+use App\Views\BaseTemplate;
 
 class UserTemplate extends BaseTemplate {
     public function getLoginTemplate(): string 
@@ -12,12 +12,12 @@ class UserTemplate extends BaseTemplate {
         <div class="row">
             <div class="col-md-4 offset-md-4">
             <form method="post" action="/login">
-            <!-- Login input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="form2Example1">Логин:</label>
-                <input type="text" name="login" id="form2Example1" class="form-control" required/>
-                <div class="invalid-feedback">Поле обязательно к заполнению</div>
-            </div>
+                <!-- Login input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form2Example1">Логин:</label>
+                    <input type="text" name="login" id="form2Example1" class="form-control" required/>
+                    <div class="invalid-feedback">Поле обязательно к заполнению</div>
+                </div>
 
             <!-- Password input -->
             <div data-mdb-input-init class="form-outline mb-4">
@@ -33,7 +33,7 @@ class UserTemplate extends BaseTemplate {
         </div>
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         END;
-        $resultTemplate =  sprintf($template, 'Вход', $str);
+        $resultTemplate = sprintf($template, 'Вход', $str);
         return $resultTemplate;
     }
 

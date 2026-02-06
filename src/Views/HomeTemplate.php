@@ -1,7 +1,7 @@
 <?php
-namespace Views;
+namespace App\Views;
 
-use Views\BaseTemplate;
+use App\Views\BaseTemplate;
 
 class HomeTemplate extends BaseTemplate {
     public function getHomeTemplate(): string 
@@ -11,7 +11,7 @@ class HomeTemplate extends BaseTemplate {
         $str .= <<<END
         <div class="row mt-5">
             <p>
-                Базовый проект
+                Описание проекта
             </p>
         </div>   
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>

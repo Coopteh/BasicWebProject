@@ -1,9 +1,9 @@
 <?php
-namespace Models;
+namespace App\Models;
 
 use PDO;
 
-class ScoreDBStorage extends DBStorage
+class MarkDBStorage extends DBStorage
 {
 
     public function getAllScores():mixed {

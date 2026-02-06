@@ -1,10 +1,10 @@
 <?php
-namespace Controllers;
+namespace App\Controllers;
 
-use Models\ScoreDBStorage;
-use Views\ScoreTemplate;
+use App\Models\MarkDBStorage;
+use App\Views\MarkTemplate;
 
-class Scores {
+class Marks {
     public function getAll(): string 
     {
         $objTemplate = new ScoreTemplate();

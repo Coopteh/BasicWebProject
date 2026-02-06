@@ -1,7 +1,7 @@
 <?php
-namespace Controllers;
+namespace App\Controllers;
 
-use Views\HomeTemplate;
+use App\Views\HomeTemplate;
 
 class Home {
     public function get(): string 
