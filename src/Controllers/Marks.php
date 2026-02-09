@@ -7,33 +7,33 @@ use App\Views\MarkTemplate;
 class Marks {
     public function getAll(): string 
     {
-        $objTemplate = new ScoreTemplate();
-        $storage = new ScoreDBStorage();
-        $result = $storage->getAllScores();
+        $objTemplate = new MarkTemplate();
+        $storage = new MarkDBStorage();
+        $result = $storage->getAllMarks();
 
         $groups = $storage->getGroups();
         $students = $storage->getStudents();
 
-        $template = $objTemplate->getScoreTemplate($result, $groups, $students );
+        $template = $objTemplate->getMarkTemplate($result, $groups, $students );
 
         return $template;
     }    
     
     public function getForm() {
-        $storage = new ScoreDBStorage();
+        $storage = new MarkDBStorage();
         $groups = $storage->getGroups();
         $students = $storage->getStudents();
         $subjects = $storage->getSubjects();
 
-        $objTemplate = new ScoreTemplate();
+        $objTemplate = new MarkTemplate();
         $template = $objTemplate->getFormTemplate($groups, $students, $subjects);
         return $template;
     }
 
-    public function addScore($row)
+    public function addMark($row)
     {
-        $storage = new ScoreDBStorage();
-        $result = $storage->addScore($row);
+        $storage = new MarkDBStorage();
+        $result = $storage->addMark($row);
         return $result;
     }
 }

@@ -54,9 +54,9 @@ class Router {
                 self::addFlash("Вы вышли из аккаунта");
                 header('Location: /');
                 return ''; 
-            case 'scores':
-                $scoreController = new Scores();
-                $html_result = $scoreController->getAll();
+            case 'marks':
+                $controller = new Marks();
+                $html_result = $controller->getAll();
                 break; 
             case 'subjects':
                 $subjectsController = new Subjects();
@@ -66,19 +66,19 @@ class Router {
                 $userController = new Users();
                 $html_result = $userController->getAll();
                 break; 
-            case 'add_score':
-                $scoreController = new Scores();
-                if (isset($_POST['idstudent']) && isset($_POST['score'])) {
+            case 'add_mark':
+                $controller = new Marks();
+                if (isset($_POST['id_user']) && isset($_POST['value_mark'])) {
                     $row= array(
-                        'idstudent' => $_POST['idstudent'], 
-                        'idgroup' => $_POST['idgroup'], 
-                        'idsubject' => $_POST['idsubject'], 
-                        'date_score' => $_POST['date_score'],
-                        'score' => $_POST['score']
+                        'id_user' => $_POST['id_user'], 
+                        'id_group' => $_POST['id_group'], 
+                        'id_course' => $_POST['id_course'], 
+                        'dt_mark' => $_POST['dt_mark'],
+                        'value_mark' => $_POST['value_mark']
                     );
                     //var_dump($row);
                     //exit();
-                    if ($scoreController->addScore($row)) {
+                    if ($controller->addMark($row)) {
                         self::addFlash("Оценка успешно добавлена");
                         header('Location: /scores');
                         return '';
@@ -86,7 +86,7 @@ class Router {
                         self::addFlash("Ошибка добавления оценки", "alert-danger");
                     }
                 }                   
-                $html_result = $scoreController->getForm();
+                $html_result = $controller->getForm();
                 break;                
             case 'add_user':
                 $userController = new Users();
