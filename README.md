@@ -35,14 +35,15 @@ composer install
 Создайте новую базу данных, задайте ей имя (`mydb`) c `utf8mb4_general_ci`  
 Создайте таблицу (например `users`) c нужными полями  
 ```
-id — int, auto_increment, primary_key
-login — varchar(100)
+id_user — int, auto_increment, primary_key
+email — varchar(100)
 password — varchar(100)
-role — varchar(100), default value = 'user'
+role — varchar(100) default value = 'student'
+fio  — varchar(100)
 ```
 Добавьте пару записей в таблицу (меню `Вставить`) 
 ```
-(login, password, role)
-admin, admin, admin
-user, user, user
+(email, password, role, fio)
+teacher@mai.ru, 12345678!, teacher, Иванов В.В.
+user1@mai.ru, 1234567!, student, Петров И.И.
 ```
