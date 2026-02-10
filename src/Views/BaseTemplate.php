@@ -47,7 +47,7 @@ class BaseTemplate {
                 $template .= <<<LINE
                         <ul class="navbar-nav w-25">
                             <li class="nav-item">
-                                {$user_name}*** |
+                                {$user_name} |
                             </li>
                             <li class="nav-item">
                                 &nbsp;

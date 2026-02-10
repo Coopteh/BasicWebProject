@@ -80,14 +80,42 @@ class Router {
                     //exit();
                     if ($controller->addMark($row)) {
                         self::addFlash("Оценка успешно добавлена");
-                        header('Location: /scores');
+                        header('Location: /marks');
                         return '';
                     } else {
                         self::addFlash("Ошибка добавления оценки", "alert-danger");
                     }
                 }                   
                 $html_result = $controller->getForm();
-                break;                
+                break;
+            case 'edit_mark':
+                $controller = new Marks();
+                if (isset($_POST['id_user']) && isset($_POST['value_mark'])) {
+                    $row= array(
+                        'id_mark' => $_POST['id_mark'], 
+                        'id_teacher' => $_POST['id_teacher'],
+                        'id_user' => $_POST['id_user'], 
+                        'id_group' => $_POST['id_group'], 
+                        'id_course' => $_POST['id_course'], 
+                        'dt_mark' => $_POST['dt_mark'],
+                        'value_mark' => $_POST['value_mark']
+                    );
+                    if ($controller->editMark($row)) {
+                        self::addFlash("Оценка успешно изменена");
+                        header('Location: /marks');
+                        return '';
+                    } else {
+                        self::addFlash("Ошибка изменения оценки", "alert-danger");
+                    }
+                }     
+                if (isset($_POST['id_mark']))
+                    $html_result = $controller->getForm($_POST['id_mark']);
+                else {
+                    self::addFlash("Ошибка изменения записи", "alert-danger");
+                    header('Location: /marks');
+                    return '';
+                }
+                break;
             case 'add_user':
                 $userController = new Users();
                 if (isset($_POST['login']) && isset($_POST['password'])) {

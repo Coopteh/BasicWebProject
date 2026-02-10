@@ -12,7 +12,7 @@ class MarkTemplate extends BaseTemplate {
         $str = '';
         $str .= <<<END
         <div class="row">
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-10 offset-md-1">
             <h1>Журнал оценок</h1>
         END;
         $str .= <<<SELECT
@@ -56,6 +56,7 @@ class MarkTemplate extends BaseTemplate {
                 <th scope="col">Дата</th>
                 <th scope="col">Оценка</th>
                 <th scope="col">Студент</th>
+                <th scope="col">Группа</th>
                 <th scope="col">Операция</th>
             </tr>
         </thead>
@@ -72,6 +73,7 @@ class MarkTemplate extends BaseTemplate {
                     <td>{$mydate}</td>
                     <td>{$row['value_mark']}</td>
                     <td>{$row['fio']}</td>
+                    <td>{$row['name_group']}</td>
                     <td>
                         <form action="/edit_mark" method="POST">
                             <input type="hidden" name="id_mark" value="{$row['id_mark']}">
@@ -89,6 +91,7 @@ class MarkTemplate extends BaseTemplate {
                     <td>{$mydate}</td>
                     <td>{$row['value_mark']}</td>
                     <td>{$row['fio']}</td>
+                    <td>{$row['name_group']}</td>
                     <td>
                         <form action="/edit_mark" method="POST">
                             <input type="hidden" name="id_mark" value="{$row['id_mark']}">
@@ -106,6 +109,7 @@ class MarkTemplate extends BaseTemplate {
                     <td>{$mydate}</td>
                     <td>{$row['value_mark']}</td>
                     <td>{$row['fio']}</td>
+                    <td>{$row['name_group']}</td>
                     <td>
                         <form action="/edit_mark" method="POST">
                             <input type="hidden" name="id_mark" value="{$row['id_mark']}">
@@ -134,17 +138,33 @@ class MarkTemplate extends BaseTemplate {
         return $resultTemplate;
     }
 
-    public function getFormTemplate($groups, $students, $subjects) 
+    public function getFormTemplate($row, $groups, $students, $subjects) 
     {
         $template = parent::getBaseTemplate();
         $str = '';
+        if ($row) {
+            $title = "Изменение оценки";
+            $fromUrl = "/edit_mark";
+            $btnTitle = "Сохранить";
+            $value_dt_mark = mb_substr($row['dt_mark'], 0, 10);
+            $mark_value = $row['value_mark'];
+        } else {
+            $title = "Добавление оценки";
+            $fromUrl = "/add_mark";
+            $btnTitle = "Добавить";
+            $value_dt_mark = date('Y-m-d');
+            $mark_value = '';
+        }   
         $str .= <<<END
-        <h1>Добавление оценки</h1>
         <div class="row">
             <div class="col-md-4 offset-md-4">
-            <form method="post" action="/add_mark">
+            <h3 class="mb-3">{$title}</h3>
+            <form method="post" action="{$fromUrl}">
         END;
-
+        if ($row) {
+            $str .= '<input type="hidden" name="id_mark" value="'.$row['id_mark'].'">';
+            $str .= '<input type="hidden" name="id_teacher" value="'.$row['id_teacher'].'">';
+        }
         // Выбор студента
         $str .= <<<SELECT1
         <div data-mdb-input-init class="form-outline mb-4">
@@ -152,7 +172,7 @@ class MarkTemplate extends BaseTemplate {
             <option selected>Выберите студента</option>
         SELECT1;
         foreach($students as $student) {
-            if (isset($_POST["id_user"]) and ($student['id_user']==$_POST["id_user"]))
+            if (isset($row["id_user"]) and ($student['id_user']==$row["id_user"]))
                 $selected= "selected";
             else
                 $selected= "";
@@ -167,7 +187,7 @@ class MarkTemplate extends BaseTemplate {
             <option selected>Выберите группу</option>
         SELECT;
         foreach($groups as $group) {
-            if (isset($_POST["id_group"]) and ($group['id_group']==$_POST["id_group"]))
+            if (isset($row["id_group"]) and ($group['id_group']==$row["id_group"]))
                 $selected= "selected";
             else
                 $selected= "";
@@ -182,7 +202,7 @@ class MarkTemplate extends BaseTemplate {
             <option selected>Выберите дисциплину</option>
         SELECT;
         foreach($subjects as $subject) {
-            if (isset($_POST["id_course"]) and ($subject['id_course']==$_POST["id_course"]))
+            if (isset($row["id_course"]) and ($subject['id_course']==$row["id_course"]))
                 $selected= "selected";
             else
                 $selected= "";
@@ -193,24 +213,26 @@ class MarkTemplate extends BaseTemplate {
         $str .= <<<FIELDS
             <div data-mdb-input-init class="form-outline mb-4">
                 <label class="form-label" for="form2Example1">Дата:</label>
-                <input type="text" name="dt_mark" id="form2Example1" class="form-control" required/>
+                <input type="text" name="dt_mark" id="form2Example1" 
+                    class="form-control" required value="{$value_dt_mark}" />
                 <div class="invalid-feedback">Поле обязательно к заполнению</div>
             </div>
 
             <div data-mdb-input-init class="form-outline mb-4">
                 <label class="form-label" for="form3Example1">Оценка:</label>
-                <input type="text" name="value_mark" id="form3Example1" class="form-control" required/>
-                <div class="invalid-feedback">Поле обязательно к заполнению</div>
+                <input type="text" name="value_mark" id="form3Example1" 
+                class="form-control" value="{$mark_value}" />
             </div>
 
                 <!-- Submit button -->
-                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Добавить</button>
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init 
+                    class="btn btn-primary btn-block mb-4">{$btnTitle}</button>
             </form>
             </div>
         </div>
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         FIELDS;
-        $resultTemplate =  sprintf($template, 'Добавление оценки', $str);
+        $resultTemplate =  sprintf($template, $title, $str);
         return $resultTemplate;   
     }
 }
