@@ -27,13 +27,6 @@ class Router {
         $html_result = "";
 
         switch ($resource) {
-            /*case "products":
-                $product = new Product();
-                if ($id)
-                    $html_result = $product->get($id);
-                else
-                    $html_result = $product->getAll();
-                break;*/
             case 'login':
                 $userController = new Users();
                 if (isset($_POST['login']) && isset($_POST['password'])) {
@@ -54,87 +47,53 @@ class Router {
                 self::addFlash("Вы вышли из аккаунта");
                 header('Location: /');
                 return ''; 
-            case 'marks':
-                $controller = new Marks();
+            case 'services':
+                $controller = new Service();
                 $html_result = $controller->getAll();
-                break; 
-            case 'subjects':
-                $subjectsController = new Subjects();
-                $html_result = $subjectsController->getAll();
-                break;                
-            case 'users':
-                $userController = new Users();
-                $html_result = $userController->getAll();
-                break; 
-            case 'add_mark':
-                $controller = new Marks();
-                if (isset($_POST['id_user']) && isset($_POST['value_mark'])) {
+                break;          
+            case 'add_record':
+                $controller = new Service();
+                if (isset($_POST['id_user']) && isset($_POST['price'])) {
                     $row= array(
                         'id_user' => $_POST['id_user'], 
-                        'id_group' => $_POST['id_group'], 
-                        'id_course' => $_POST['id_course'], 
-                        'dt_mark' => $_POST['dt_mark'],
-                        'value_mark' => $_POST['value_mark']
+                        'date_service' => $_POST['date_service'],
+                        'price' => $_POST['price'],
+                        'name' => $_POST['name'],
                     );
-                    //var_dump($row);
-                    //exit();
-                    if ($controller->addMark($row)) {
-                        self::addFlash("Оценка успешно добавлена");
-                        header('Location: /marks');
+                    if ($controller->add($row)) {
+                        self::addFlash("Запись успешно добавлена");
+                        header('Location: /services');
                         return '';
                     } else {
-                        self::addFlash("Ошибка добавления оценки", "alert-danger");
+                        self::addFlash("Ошибка добавления записи", "alert-danger");
                     }
                 }                   
                 $html_result = $controller->getForm();
                 break;
-            case 'edit_mark':
-                $controller = new Marks();
-                if (isset($_POST['id_user']) && isset($_POST['value_mark'])) {
+            case 'edit_record':
+                $controller = new Service();
+                if (isset($_POST['id_user']) && isset($_POST['price'])) {
                     $row= array(
-                        'id_mark' => $_POST['id_mark'], 
-                        'id_teacher' => $_POST['id_teacher'],
                         'id_user' => $_POST['id_user'], 
-                        'id_group' => $_POST['id_group'], 
-                        'id_course' => $_POST['id_course'], 
-                        'dt_mark' => $_POST['dt_mark'],
-                        'value_mark' => $_POST['value_mark']
+                        'date_service' => $_POST['date_service'],
+                        'price' => $_POST['price'],
+                        'name' => $_POST['name'],
                     );
-                    if ($controller->editMark($row)) {
-                        self::addFlash("Оценка успешно изменена");
-                        header('Location: /marks');
+                    if ($controller->edit($row)) {
+                        self::addFlash("Запись успешно изменена");
+                        header('Location: /services');
                         return '';
                     } else {
-                        self::addFlash("Ошибка изменения оценки", "alert-danger");
+                        self::addFlash("Ошибка изменения записи", "alert-danger");
                     }
                 }     
-                if (isset($_POST['id_mark']))
-                    $html_result = $controller->getForm($_POST['id_mark']);
+                if (isset($_POST['id_service']))
+                    $html_result = $controller->getForm($_POST['id_service']);
                 else {
                     self::addFlash("Ошибка изменения записи", "alert-danger");
-                    header('Location: /marks');
+                    header('Location: /services');
                     return '';
                 }
-                break;
-            case 'add_user':
-                $userController = new Users();
-                if (isset($_POST['login']) && isset($_POST['password'])) {
-                    $row= array(
-                        'login' => $_POST['login'], 
-                        'password' => $_POST['password'], 
-                        'role' => $_POST['role']
-                    );
-                    //var_dump($row);
-                    //exit();
-                    if ($userController->addUser($row)) {
-                        self::addFlash("Пользователь успешно добавлен");
-                        header('Location: /');
-                        return '';
-                    } else {
-                        self::addFlash("Ошибка добавления пользователя", "alert-danger");
-                    }
-                }                
-                $html_result = $userController->getForm();
                 break;
             default:
                 $home = new Home();

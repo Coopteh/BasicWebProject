@@ -1,9 +1,8 @@
 <?php
 ini_set('default_charset', 'UTF-8');  
+require_once("./vendor/autoload.php");
 
 use App\Routers\Router;
-
-require_once("./vendor/autoload.php");
 
 $user_id=0;
 $user_name=""; 
