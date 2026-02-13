@@ -18,7 +18,7 @@ class BaseTemplate {
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Электронный журнал</a>
+                    <a class="navbar-brand" href="#">АИС "Журнал услуг"</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
@@ -27,27 +27,20 @@ class BaseTemplate {
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
                     </div>     
         END;                   
-    if (($user_role == 'student') or ($user_role == 'teacher')) {
+    if (($user_role == 'client') or ($user_role == 'tech')) {
             $template .= <<<SCORE
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/marks">Оценки</a>
+                        <a class="nav-link active" aria-current="page" href="/services">Услуги</a>
                     </div>
             SCORE;         
     }
-    if ($user_role == 'teacher') {
-            $template .= <<<SCORE
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/courses">Дисциплины</a>
-                    </div>
-            SCORE;         
-    }    
-        $template .= "</div></div>";
+    $template .= "</div></div>";
 
         if ($user_id > 0) {
                 $template .= <<<LINE
                         <ul class="navbar-nav w-25">
                             <li class="nav-item">
-                                {$user_name} |
+                                {$user_name} ({$user_role}) |
                             </li>
                             <li class="nav-item">
                                 &nbsp;

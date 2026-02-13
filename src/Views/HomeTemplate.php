@@ -11,7 +11,10 @@ class HomeTemplate extends BaseTemplate {
         $str .= <<<END
         <div class="row mt-5">
             <p>
-                Описание проекта
+            АИС "Журнал услуг" предназначена для учета услуг станции технического осмотра.
+            </p>        
+            <p>
+            Для работы с системой требуется авторизоваться через меню "Вход".
             </p>
         </div>   
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
