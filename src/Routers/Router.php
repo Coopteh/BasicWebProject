@@ -3,8 +3,7 @@ namespace App\Routers;
 
 use App\Controllers\Home;
 use App\Controllers\Users;
-use App\Controllers\Marks;
-use App\Controllers\Courses;
+use App\Controllers\Services;
 
 class Router {
     public function route(string $url):?string 
@@ -48,11 +47,11 @@ class Router {
                 header('Location: /');
                 return ''; 
             case 'services':
-                $controller = new Service();
+                $controller = new Services();
                 $html_result = $controller->getAll();
                 break;          
             case 'add_record':
-                $controller = new Service();
+                $controller = new Services();
                 if (isset($_POST['id_user']) && isset($_POST['price'])) {
                     $row= array(
                         'id_user' => $_POST['id_user'], 
@@ -60,7 +59,7 @@ class Router {
                         'price' => $_POST['price'],
                         'name' => $_POST['name'],
                     );
-                    if ($controller->add($row)) {
+                    if ($controller->addService($row)) {
                         self::addFlash("Запись успешно добавлена");
                         header('Location: /services');
                         return '';
@@ -71,15 +70,16 @@ class Router {
                 $html_result = $controller->getForm();
                 break;
             case 'edit_record':
-                $controller = new Service();
+                $controller = new Services();
                 if (isset($_POST['id_user']) && isset($_POST['price'])) {
                     $row= array(
+                        'id_service' => $_POST['id_service'],
                         'id_user' => $_POST['id_user'], 
                         'date_service' => $_POST['date_service'],
                         'price' => $_POST['price'],
                         'name' => $_POST['name'],
                     );
-                    if ($controller->edit($row)) {
+                    if ($controller->editService($row)) {
                         self::addFlash("Запись успешно изменена");
                         header('Location: /services');
                         return '';
@@ -93,6 +93,19 @@ class Router {
                     self::addFlash("Ошибка изменения записи", "alert-danger");
                     header('Location: /services');
                     return '';
+                }
+                break;
+            case 'delete_record':
+                $controller = new Services();
+                if (isset($_POST['id_service'])) {
+                    $id_rec = $_POST['id_service'];
+                    if ($controller->deleteService($id_rec)) {
+                        self::addFlash("Запись успешно удалена");
+                        header('Location: /services');
+                        return '';
+                    } else {
+                        self::addFlash("Ошибка удаления записи", "alert-danger");
+                    }
                 }
                 break;
             default:
