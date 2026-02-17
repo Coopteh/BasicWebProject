@@ -3,7 +3,7 @@ namespace App\Routers;
 
 use App\Controllers\Home;
 use App\Controllers\Users;
-use App\Controllers\Services;
+use App\Controllers\Service;
 
 class Router {
     public function route(string $url):?string 
@@ -46,12 +46,12 @@ class Router {
                 self::addFlash("Вы вышли из аккаунта");
                 header('Location: /');
                 return ''; 
-            case 'services':
-                $controller = new Services();
+            case 'service':
+                $controller = new Service();
                 $html_result = $controller->getAll();
                 break;          
             case 'add_record':
-                $controller = new Services();
+                $controller = new Service();
                 if (isset($_POST['id_user']) && isset($_POST['price'])) {
                     $row= array(
                         'id_user' => $_POST['id_user'], 
@@ -61,7 +61,7 @@ class Router {
                     );
                     if ($controller->addService($row)) {
                         self::addFlash("Запись успешно добавлена");
-                        header('Location: /services');
+                        header('Location: /service');
                         return '';
                     } else {
                         self::addFlash("Ошибка добавления записи", "alert-danger");
@@ -70,7 +70,7 @@ class Router {
                 $html_result = $controller->getForm();
                 break;
             case 'edit_record':
-                $controller = new Services();
+                $controller = new Service();
                 if (isset($_POST['id_user']) && isset($_POST['price'])) {
                     $row= array(
                         'id_service' => $_POST['id_service'],
@@ -81,7 +81,7 @@ class Router {
                     );
                     if ($controller->editService($row)) {
                         self::addFlash("Запись успешно изменена");
-                        header('Location: /services');
+                        header('Location: /service');
                         return '';
                     } else {
                         self::addFlash("Ошибка изменения записи", "alert-danger");
@@ -91,17 +91,17 @@ class Router {
                     $html_result = $controller->getForm($_POST['id_service']);
                 else {
                     self::addFlash("Ошибка изменения записи", "alert-danger");
-                    header('Location: /services');
+                    header('Location: /service');
                     return '';
                 }
                 break;
             case 'delete_record':
-                $controller = new Services();
+                $controller = new Service();
                 if (isset($_POST['id_service'])) {
                     $id_rec = $_POST['id_service'];
                     if ($controller->deleteService($id_rec)) {
                         self::addFlash("Запись успешно удалена");
-                        header('Location: /services');
+                        header('Location: /service');
                         return '';
                     } else {
                         self::addFlash("Ошибка удаления записи", "alert-danger");

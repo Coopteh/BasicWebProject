@@ -10,7 +10,7 @@ class ServiceDBStorage extends DBStorage
     public function getAllServices():mixed {
         global $user_id, $user_role;
 
-        if ($user_role == 'tech') {
+        if ($user_role == 'editor') {
             $sql= "SELECT m.id_service, m.id_user, m.date_service, 
                     m.name, m.price, users.fio
                    FROM services as m
@@ -67,7 +67,7 @@ class ServiceDBStorage extends DBStorage
     }
 
     public function getClients() {
-        $sql= "SELECT id_user, fio FROM users WHERE role='client'";
+        $sql= "SELECT id_user, fio FROM users WHERE role='user'";
         $result = $this->connection->query($sql);
         $rows = $result->fetchAll();
         return $rows;

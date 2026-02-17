@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\ServiceDBStorage;
 use App\Views\ServiceTemplate;
 
-class Services {
+class Service {
     public function getAll(): string 
     {
         $objTemplate = new ServiceTemplate();

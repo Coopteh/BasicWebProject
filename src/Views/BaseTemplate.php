@@ -27,28 +27,28 @@ class BaseTemplate {
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
                     </div>     
         END;                   
-    if (($user_role == 'client') or ($user_role == 'tech')) {
+    if ($user_id > 0) {
             $template .= <<<SCORE
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/services">Услуги</a>
-                    </div>
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/service">Услуги</a>
+            </div>
             SCORE;         
     }
     $template .= "</div></div>";
 
         if ($user_id > 0) {
                 $template .= <<<LINE
-                        <ul class="navbar-nav w-25">
-                            <li class="nav-item">
-                                {$user_name} ({$user_role}) |
-                            </li>
-                            <li class="nav-item">
-                                &nbsp;
-                            </li>
-                            <li class="nav-item">
-                                <a class="dropdown-item" href="/logout">Выход</a>
-                            </li>
-                        </ul>
+                    <ul class="navbar-nav w-25">
+                        <li class="nav-item">
+                            {$user_name} ({$user_role}) |
+                        </li>
+                        <li class="nav-item">
+                            &nbsp;
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/logout">Выход</a>
+                        </li>
+                    </ul>
                 LINE;
         } else {
             $template .= <<<LINE

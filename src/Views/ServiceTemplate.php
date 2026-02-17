@@ -16,9 +16,9 @@ class ServiceTemplate extends BaseTemplate {
             <h3>Журнал услуг</h3>
         END;
 
-        if ($user_role == 'client') {
+        if ($user_role == 'user') {
             $str .= <<<END
-            <table class="table">
+            <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -32,7 +32,7 @@ class ServiceTemplate extends BaseTemplate {
             END;
         } else {
             $str .= <<<END
-            <table class="table">
+            <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -40,7 +40,7 @@ class ServiceTemplate extends BaseTemplate {
                     <th scope="col">Дата</th>
                     <th scope="col">Стоимость</th>
                     <th scope="col">Клиент</th>
-                    <th scope="col">Операция</th>
+                    <th scope="col text-end">Операция</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,17 +58,19 @@ class ServiceTemplate extends BaseTemplate {
             <td>{$row['fio']}</td>
             LINE;
             // проверка роли для операций изменения и удаления
-            if ($user_role == 'tech') {
+            if ($user_role == 'editor') {
                 $str .= <<<LINE2
                 <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                     <form action="/edit_record" method="POST">
                         <input type="hidden" name="id_service" value="{$row['id_service']}">
-                        <button type="submit" class="btn btn-primary">Изменить</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Изменить</button>
                     </form>
                     <form action="/delete_record" method="POST">
                         <input type="hidden" name="id_service" value="{$row['id_service']}">
-                        <button type="submit" class="btn btn-primary">Удалить</button>
-                    </form>                    
+                        <button type="submit" class="btn btn-primary btn-sm">Удалить</button>
+                    </form>  
+                    </div>                  
                 </td>      
                 LINE2;
             }
@@ -77,7 +79,7 @@ class ServiceTemplate extends BaseTemplate {
         $str .= "</tbody></table>";
 
         // проверка роли для операции добавления записи
-        if ($user_role == 'tech') {
+        if ($user_role == 'editor') {
             $str .= <<<ADD
             <form action="/add_record" method="POST">
                 <button type="submit" class="btn btn-primary">Добавить запись</button>
