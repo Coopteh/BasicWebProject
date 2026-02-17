@@ -11,6 +11,7 @@ class UserTemplate extends BaseTemplate {
         $str .= <<<END
         <div class="row">
             <div class="col-md-4 offset-md-4">
+            <h3 class="mb-3">Вход в систему</h3>
             <form method="post" action="/login">
                 <!-- Login input -->
                 <div data-mdb-input-init class="form-outline mb-4">

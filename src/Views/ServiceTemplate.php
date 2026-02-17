@@ -40,7 +40,7 @@ class ServiceTemplate extends BaseTemplate {
                     <th scope="col">Дата</th>
                     <th scope="col">Стоимость</th>
                     <th scope="col">Клиент</th>
-                    <th scope="col text-end">Операция</th>
+                    <th scope="col text-end">Операции</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,7 +107,7 @@ class ServiceTemplate extends BaseTemplate {
         } else {
             $title = "Добавление услуги";
             $fromUrl = "/add_record";
-            $btnTitle = "Добавить";
+            $btnTitle = "Сохранить";
             $valueDateService = date('Y-m-d');
             $serviceValue = '';
             $nameService ='';
@@ -123,9 +123,10 @@ class ServiceTemplate extends BaseTemplate {
         }
         // Выбор клиента
         $str .= <<<SELECT1
-        <div data-mdb-input-init class="form-outline mb-4">
-        <select class="form-select" aria-label="Default select example" name="id_user">
-            <option selected>Выберите клиента</option>
+        <div data-mdb-input-init class="form-outline mt-4 mb-4">
+            <label class="form-label" for="selectIdUser">Клиент:</label>
+            <select class="form-select" aria-label="Default select example" name="id_user" id="selectIdUser">
+                <option selected>Выберите клиента</option>
         SELECT1;
         foreach($clients as $client) {
             if (isset($row["id_user"]) and ($client['id_user']==$row["id_user"]))
