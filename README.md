@@ -26,8 +26,8 @@ composer install
 добавьте 3-10 записей в каждую из таблиц
 - запустите localhost в браузере
 - создайте приложение в Visual Studio Code
-1) подключите базу данных в DBStorage, const DNS = 'mysql:dbname=demo_service
-dbname= измените на свое название БД (demo)
+1) подключите базу данных в DBStorage, const DNS = 'mysql:dbname=demo_service;host=localhost';
+dbname= измените demo_service на свое название БД (demo)
 1) измените название приложения на АИС "Журнал .."
 2) добавьте описание на главную: 
 назначение приложения (из описания предметной области задания),
