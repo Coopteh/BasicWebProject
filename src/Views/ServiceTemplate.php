@@ -26,6 +26,7 @@ class ServiceTemplate extends BaseTemplate {
                     <th scope="col">Дата</th>
                     <th scope="col">Стоимость</th>
                     <th scope="col">Клиент</th>
+                    <th scope="col">Статус</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@ class ServiceTemplate extends BaseTemplate {
                     <th scope="col">Дата</th>
                     <th scope="col">Стоимость</th>
                     <th scope="col">Клиент</th>
+                    <th scope="col">Статус</th>
                     <th scope="col text-end">Операции</th>
                 </tr>
             </thead>
@@ -56,6 +58,7 @@ class ServiceTemplate extends BaseTemplate {
             <td>{$mydate}</td>
             <td>{$row['price']}</td>
             <td>{$row['fio']}</td>
+            <td>{$row['status']}</td>
             LINE;
             // проверка роли для операций изменения и удаления
             if ($user_role == 'editor') {
@@ -134,6 +137,23 @@ class ServiceTemplate extends BaseTemplate {
             else
                 $selected= "";
             $str .= '<option value="'.$client['id_user'].'" '.$selected.'>'.$client['fio'].'</option>';
+        }
+        $str.='</select></div>';
+
+        // Статус
+        $str .= <<<SELECT1
+        <div data-mdb-input-init class="form-outline mt-4 mb-4">
+            <label class="form-label" for="selectStatus">Статус:</label>
+            <select class="form-select" aria-label="Default select example" name="status" id="selectStatus">
+                <option selected>Выберите статус</option>
+        SELECT1;
+        $statuses = ["прием", "в работе", "завершен", "отменен"];
+        foreach($statuses as $status) {
+            if (isset($row["status"]) and ($status==$row["status"]))
+                $selected= "selected";
+            else
+                $selected= "";
+            $str .= '<option value="'.$status.'" '.$selected.'>'.$status.'</option>';
         }
         $str.='</select></div>';
 

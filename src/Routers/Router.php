@@ -58,6 +58,7 @@ class Router {
                         'date_service' => $_POST['date_service'],
                         'price' => $_POST['price'],
                         'name' => $_POST['name'],
+                        'status' => $_POST['status'],
                     );
                     if ($controller->addService($row)) {
                         self::addFlash("Запись успешно добавлена");
@@ -78,6 +79,7 @@ class Router {
                         'date_service' => $_POST['date_service'],
                         'price' => $_POST['price'],
                         'name' => $_POST['name'],
+                        'status' => $_POST['status'],
                     );
                     if ($controller->editService($row)) {
                         self::addFlash("Запись успешно изменена");

@@ -12,7 +12,7 @@ class ServiceDBStorage extends DBStorage
 
         if ($user_role == 'editor') {
             $sql= "SELECT m.id_service, m.id_user, m.date_service, 
-                    m.name, m.price, users.fio
+                    m.name, m.price, users.fio, m.status
                    FROM services as m
                    JOIN users ON m.id_user = users.id_user
                    WHERE (m.deleted = 0) ORDER BY m.id_service DESC";
@@ -21,7 +21,7 @@ class ServiceDBStorage extends DBStorage
             return $rows;
         } else {
             $sql= "SELECT m.id_service, m.id_user, m.date_service, 
-                    m.name, m.price, users.fio
+                    m.name, m.price, users.fio, m.status
                    FROM services as m
                    JOIN users ON m.id_user = users.id_user
                    WHERE (m.id_user = ".$user_id.") 
@@ -35,17 +35,17 @@ class ServiceDBStorage extends DBStorage
     public function addService($row) {
     global $user_id;
         $sql = "INSERT INTO `services` 
-        (`name`, `price`, `id_user`) 
+        (`name`, `price`, `id_user`, `status`) 
         VALUES 
-        ('".$row['name']."','".$row['price']."','".$row['id_user']."')";
- //var_dump($sql);
- //exit();        
+        ('".$row['name']."','".$row['price']."','".$row['id_user']."','".$row['status']."')";
+//var_dump($sql);
+//exit();        
         $result = $this->connection->query($sql);
         return $result;
     }
 
     public function getRecord($id_rec) {
-        $sql= "SELECT id_service, id_user, date_service, name, price, deleted
+        $sql= "SELECT id_service, id_user, date_service, name, price, deleted, status
                 FROM services 
                 WHERE id_service = ".$id_rec;
         $result = $this->connection->query($sql);
@@ -59,7 +59,8 @@ class ServiceDBStorage extends DBStorage
         `name`='".$row['name']."',
         `price`='".$row['price']."',
         `id_user`='".$row['id_user']."',
-        `date_service`='".$row['date_service']."'
+        `date_service`='".$row['date_service']."',
+        `status`='".$row['status']."'
         WHERE `id_service` = ".$row['id_service'];
 
         $result = $this->connection->query($sql);
